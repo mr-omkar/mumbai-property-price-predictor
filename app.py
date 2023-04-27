@@ -9,7 +9,7 @@ st.set_page_config(
 )
 
 
-data = pd.read_csv("/Properties.csv")
+data = pd.read_csv("Properties.csv")
 df = pd.DataFrame(data)
 regions = df['Region'].unique()
 Property_Age = df['Property_Age'].unique()
