@@ -28,18 +28,14 @@ Bathroom = df['Bathroom'].unique()
 st.title("Mumbai's Property Price Predector")
 
 def load_data():
-    data = pd.DataFrame([[inp_reg,inp_age,inp_aval,inp_area,inp_areasqft,inp_ratesqft,inp_flr,inp_bed,inp_bath]],
-                        columns=['Region','Property_Age','Availability','Area_Tpye','Area_SqFt','Rate_SqFt','Floor_No','Bedroom','Bathroom'])
-
-    data['Floor_No'] = data['Floor_No'].astype('object')
-    data['Bedroom'] = data['Bedroom'].astype('object')
-    data['Bathroom'] = data['Bathroom'].astype('object')
+    data = pd.DataFrame([[inp_reg,inp_age,inp_aval,inp_area,inp_areasqft,inp_flr,inp_bed,inp_bath]],
+                        columns=['Region','Property_Age','Availability','Area_Tpye','Area_SqFt','Floor_No','Bedroom','Bathroom'])
 
 
     prediction(data)
 
 def prediction(inp):
-    with open("prop_model_v1.pkl","rb") as f:
+    with open("pipelineRfr.pkl","rb") as f:
         m = dill.load(f)
     res = m.predict(inp)[0]
     out = round(res,4) * 100000
@@ -52,8 +48,8 @@ def prediction(inp):
 min_area = int(df["Area_SqFt"].min())
 max_area = int(df["Area_SqFt"].max())
 
-min_rate = int(df["Rate_SqFt"].min())
-max_rate = int(df["Rate_SqFt"].max())
+# min_rate = int(df["Rate_SqFt"].min())
+# max_rate = int(df["Rate_SqFt"].max())
 
 min_floor = int(df["Floor_No"].min())
 max_floor = int(df["Floor_No"].max())
@@ -91,7 +87,7 @@ with col11:
 
 
 with col12:
-        inp_ratesqft = col12.number_input("Rate SqFt",min_rate,max_rate)
+        # inp_ratesqft = col12.number_input("Rate SqFt",min_rate,max_rate)
         col12.divider()
         inp_bath = col12.number_input("Bathroom",min_bath,max_bath)
 
